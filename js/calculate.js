@@ -89,11 +89,10 @@ document.getElementById('nine-card-btn').addEventListener('click', function (eve
     disableBtn('nine-card-btn');
 });
 
-function newCostPerPlayer(playerCostValue, selectedFivePlayerCount) {
-    const newCost = playerCostValue * selectedFivePlayerCount;
-
+function playerExpense(playerCostValue, selectedFivePlayerCount) {
+    const playerExpenseTotal = playerCostValue * selectedFivePlayerCount;
     const playerExpense = document.getElementById('player-expense');
-    playerExpense.innerText = newCost;
+    playerExpense.innerText = playerExpenseTotal;
 }
 
 function playerCost(elementId) {
@@ -113,14 +112,25 @@ document.getElementById('calculate').addEventListener('click', function () {
         alert("Please enter a valid number");
         return;
     }
-    newCostPerPlayer(playerCostValue, selectedFivePlayerCount);
+    playerExpense(playerCostValue, selectedFivePlayerCount);
 });
 
 
 document.getElementById('total-all-cost').addEventListener('click', function () {
     const calculateTotal = document.getElementById('calculate-total-cost');
 
+    const playerExpense = document.getElementById('player-expense');
+    const playerExpenseTotalString = playerExpense.innerText;
+    const playerExpenseTotalValue = parseInt(playerExpenseTotalString);
+
     const managerCostValue = playerCost('manager-cost');
     const coachCostValue = playerCost('coach-cost');
 
+    if (isNaN(managerCostValue && coachCostValue)) {
+        alert("Please enter a valid number");
+        return;
+    }
+
+    const totalCost = playerExpenseTotalValue + managerCostValue + coachCostValue;
+    calculateTotal.innerText = totalCost;
 });
