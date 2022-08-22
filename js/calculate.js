@@ -9,6 +9,7 @@ function selectedFive(elementId, fullName) {
         five.innerText = fullName;
         selectedFive.appendChild(five);
     }
+    return selectedFive.childElementCount;
 }
 
 function disableBtn(elementId) {
@@ -86,4 +87,28 @@ document.getElementById('nine-card-btn').addEventListener('click', function (eve
 
     selectedFive('selected-five', fullName);
     disableBtn('nine-card-btn');
+});
+
+//calculate player cost
+document.getElementById('calculate').addEventListener('click', function () {
+    const selectedFivePlayer = document.getElementById('selected-five');
+    const selectedFivePlayerCount = selectedFivePlayer.childElementCount;
+
+    const perPlayerCost = document.getElementById('per-player-cost');
+    const perPlayerCostString = perPlayerCost.value;
+    const perPlayerCostvalue = parseInt(perPlayerCostString);
+    if (isNaN(perPlayerCostvalue)) {
+        alert("Please enter a valid number");
+        return;
+    }
+
+    const newCost = perPlayerCostvalue * selectedFivePlayerCount;
+
+    const playerExpense = document.getElementById('player-expense');
+    playerExpense.innerText = newCost;
+
+    //manager
+
+
+
 });
