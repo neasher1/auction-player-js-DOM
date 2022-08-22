@@ -89,25 +89,18 @@ document.getElementById('nine-card-btn').addEventListener('click', function (eve
     disableBtn('nine-card-btn');
 });
 
-//costing cal
-function newCostPerPlayer(perPlayerCostvalue, selectedFivePlayerCount) {
-    const newCost = perPlayerCostvalue * selectedFivePlayerCount;
+function newCostPerPlayer(playerCostValue, selectedFivePlayerCount) {
+    const newCost = playerCostValue * selectedFivePlayerCount;
 
     const playerExpense = document.getElementById('player-expense');
     playerExpense.innerText = newCost;
+}
 
-    //manager cost
-    const managerCost = document.getElementById('manager-cost');
-    const managerCostString = managerCost.value;
-    const managerCostValue = parseInt(managerCostString);
-
-    //coach cost
-    const coachCost = document.getElementById('coach-cost');
-    const coachCostString = coachCost.value;
-    const coachCostValue = parseInt(coachCostString);
-
-    const totalCost = newCost + managerCost + coachCost;
-    return totalCost;
+function playerCost(elementId) {
+    const perPlayerCost = document.getElementById(elementId);
+    const perPlayerCostString = perPlayerCost.value;
+    const perPlayerCostvalue = parseInt(perPlayerCostString);
+    return perPlayerCostvalue;
 }
 
 //calculate player cost
@@ -115,20 +108,19 @@ document.getElementById('calculate').addEventListener('click', function () {
     const selectedFivePlayer = document.getElementById('selected-five');
     const selectedFivePlayerCount = selectedFivePlayer.childElementCount;
 
-    const perPlayerCost = document.getElementById('per-player-cost');
-    const perPlayerCostString = perPlayerCost.value;
-    const perPlayerCostvalue = parseInt(perPlayerCostString);
-    if (isNaN(perPlayerCostvalue)) {
+    const playerCostValue = playerCost('per-player-cost');
+    if (isNaN(playerCostValue)) {
         alert("Please enter a valid number");
         return;
     }
-    newCostPerPlayer(perPlayerCostvalue, selectedFivePlayerCount);
+    newCostPerPlayer(playerCostValue, selectedFivePlayerCount);
 });
 
 
-//total cost
 document.getElementById('total-all-cost').addEventListener('click', function () {
     const calculateTotal = document.getElementById('calculate-total-cost');
-    const totalCost = newCostPerPlayer();
-    calculateTotal.innerText = totalCost;
+
+    const managerCostValue = playerCost('manager-cost');
+    const coachCostValue = playerCost('coach-cost');
+
 });
