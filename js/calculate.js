@@ -89,6 +89,27 @@ document.getElementById('nine-card-btn').addEventListener('click', function (eve
     disableBtn('nine-card-btn');
 });
 
+//costing cal
+function newCostPerPlayer(perPlayerCostvalue, selectedFivePlayerCount) {
+    const newCost = perPlayerCostvalue * selectedFivePlayerCount;
+
+    const playerExpense = document.getElementById('player-expense');
+    playerExpense.innerText = newCost;
+
+    //manager cost
+    const managerCost = document.getElementById('manager-cost');
+    const managerCostString = managerCost.value;
+    const managerCostValue = parseInt(managerCostString);
+
+    //coach cost
+    const coachCost = document.getElementById('coach-cost');
+    const coachCostString = coachCost.value;
+    const coachCostValue = parseInt(coachCostString);
+
+    const totalCost = newCost + managerCost + coachCost;
+    return totalCost;
+}
+
 //calculate player cost
 document.getElementById('calculate').addEventListener('click', function () {
     const selectedFivePlayer = document.getElementById('selected-five');
@@ -101,14 +122,13 @@ document.getElementById('calculate').addEventListener('click', function () {
         alert("Please enter a valid number");
         return;
     }
-
-    const newCost = perPlayerCostvalue * selectedFivePlayerCount;
-
-    const playerExpense = document.getElementById('player-expense');
-    playerExpense.innerText = newCost;
-
-    //manager
+    newCostPerPlayer(perPlayerCostvalue, selectedFivePlayerCount);
+});
 
 
-
+//total cost
+document.getElementById('total-all-cost').addEventListener('click', function () {
+    const calculateTotal = document.getElementById('calculate-total-cost');
+    const totalCost = newCostPerPlayer();
+    calculateTotal.innerText = totalCost;
 });
